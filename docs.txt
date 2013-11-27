@@ -25,7 +25,6 @@ Ribs.Model
         initialize: the function that will be executed when a new instance is create by using Ribs.new against this Ribs instance.
         defaults: the default dataset of the instance.
         onchange: the functions that will be autoamatically executed when the specified 'defailts' element is changed.
-        functions: the addtionally defined functions of the Ribs.Model instance.
     
     Ribs.Model.get(key)
     Get a JSON value from default dataset.
@@ -84,7 +83,6 @@ Ribs.View
         initialize: the function that will be executed when a new instance is create by using Ribs.new against this Ribs instance.
         defaults: the default dataset of the instance.
         onchange: the functions that will be autoamatically executed when the specified 'defailts' element is changed.
-        functions: the addtionally defined functions of the Ribs.View instance.
 
     Ribs.View.get(key)
     Get a JSON value from default dataset.
@@ -115,8 +113,9 @@ Ribs.Collection
             url: URL
             method: Invoking method (i.e. 'get', 'post', 'put', 'delete', etc.).
         defaults: the default dataset of the instance.
+        immediate: the function that will be executed immediately after the Ribs instance is created.
+        initialize: the function that will be executed when a new instance is create by using Ribs.new against this Ribs instance.
         onchange: the functions that will be autoamatically executed when the specified 'defailts' element is changed.
-        functions: the addtionally defined functions of the Ribs.Collection instance.
 
     Ribs.Collection.get(key)
     Get a JSON value from default dataset.
