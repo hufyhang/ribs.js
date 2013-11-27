@@ -32,6 +32,7 @@ function _RibsView() {
     this.initialize = function() {return;};
     this.defaults = {};
     this.onchange;
+    this.functions;
 }
 
 _RibsView.prototype.extend = function(params) {
@@ -42,6 +43,14 @@ _RibsView.prototype.extend = function(params) {
     obj.el = params.el;
     if(params.events) {
         obj.events = params.events;
+    }
+    if(params.functions) {
+        var that = obj;
+        obj.functions = params.functions;
+        $.each(obj.functions, function(key,value) {
+            var code = '_RibsView.prototype.' + key + ' = ' + value;
+            eval(code);
+        })
     }
     obj.renderFunc = params.render;
     if(params.immediate) {
@@ -219,6 +228,7 @@ function _RibsCollection() {
 
     this.defaults = {};
     this.onchange;
+    this.functions;
 }
 
 _RibsCollection.prototype.extend = function(params) {
@@ -248,6 +258,14 @@ _RibsCollection.prototype.extend = function(params) {
     if(params.create) {
         obj.createUrl = params.create['url'];
         obj.createMethod = params.create['method'] ? params.create['method'] : 'post';
+    }
+    if(params.functions) {
+        var that = obj;
+        obj.functions = params.functions;
+        $.each(obj.functions, function(key,value) {
+            var code = '_RibsCollection.prototype.' + key + ' = ' + value;
+            eval(code);
+        })
     }
     return obj;
 };
