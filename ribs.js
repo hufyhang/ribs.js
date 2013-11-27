@@ -101,12 +101,21 @@ function _RibsModel() {
     this.initialize = function() {return;};
     this.defaults;
     this.onchange;
+    this.functions;
 }
 
 _RibsModel.prototype.extend = function(params) {
     var that = this;
     if(params.onchange) {
         this.onchange = params.onchange;
+    }
+    if(params.functions) {
+        var that = this;
+        this.functions = params.functions;
+        $.each(this.functions, function(key,value) {
+            var code = '_RibsModel.prototype.' + key + ' = ' + value;
+            eval(code);
+        })
     }
     if(params.fetch) {
         this.fetchUrl = params.fetch['url'];
