@@ -30,7 +30,7 @@ function _RibsView() {
     this.renderFunc;
     this.immediate = function() {return;};
     this.initialize = function() {return;};
-    this.defaults;
+    this.defaults = {};
     this.onchange;
 }
 
@@ -103,7 +103,7 @@ function _RibsModel() {
     this.createMethod = 'post';
     this.immediate = function() {return;};
     this.initialize = function() {return;};
-    this.defaults;
+    this.defaults = {};
     this.onchange;
     this.functions;
 }
@@ -191,8 +191,8 @@ _RibsModel.prototype.create = function(params) {
 };
 
 _RibsModel.prototype.ajax = function(url, method, params) {
-    var data = params.data ? params.data : true;
-    var async = params.async ? params.async : {};
+    var data = params.data ? params.data : {};
+    var async = params.async ? params.async : true;
     var doneFunc = params.done ? params.done : function() {return;};
     var failFunc = params.fail ? params.fail : function() {return;};
     var alwaysFunc = params.always ? params.always : function() {return;};
@@ -207,9 +207,17 @@ _RibsModel.prototype.ajax = function(url, method, params) {
 function _RibsCollection() {
     this.model;
     this.models = [];
-    this.url;
-    this.method = 'get';
-    this.defaults;
+
+    this.fetchUrl;
+    this.fetchMethod = 'get';
+    this.updateUrl;
+    this.updateMethod = 'post';
+    this.deleteUrl;
+    this.deleteMethod = 'post';
+    this.createUrl;
+    this.createMethod = 'post';
+
+    this.defaults = {};
     this.onchange;
 }
 
@@ -218,17 +226,28 @@ _RibsCollection.prototype.extend = function(params) {
     var that = obj;
     if(params.model) {
         obj.model = params.model;
-        obj.models.push(obj.model);
-    }
-    obj.url = params.url;
-    if(params.method) {
-        obj.method = params.method;
     }
     if(params.defaults) {
         obj.defaults = params.defaults;
     }
     if(params.onchange) {
         obj.onchange = params.onchange;
+    }
+    if(params.fetch) {
+        obj.fetchUrl = params.fetch['url'];
+        obj.fetchMethod = params.fetch['method'] ? params.fetch['method'] : 'get';
+    }
+    if(params.update) {
+        obj.updateUrl = params.update['url'];
+        obj.updateMethod = params.update['method'] ? params.update['method'] : 'post';
+    }
+    if(params.destory) {
+        obj.deleteUrl = params.destory['url'];
+        obj.deleteMethod = params.destory['method'] ? params.destory['method'] : 'post';
+    }
+    if(params.create) {
+        obj.createUrl = params.create['url'];
+        obj.createMethod = params.create['method'] ? params.create['method'] : 'post';
     }
     return obj;
 };
@@ -255,11 +274,68 @@ _RibsCollection.prototype.changeEvent = function(defaultKey) {
 }
 
 _RibsCollection.prototype.fetch = function(params) {
+    var data = {};
+    var async = true;
+    var doneFunc = function() {return;};
+    var failFunc = function() {return;};
+    var alwaysFunc = function() {return;};
+
+    if(arguments.length !== 0) {
+        data = params.data ? params.data : {};
+        async = params.async ? params.async : true;
+        doneFunc = params.done ? params.done : function() {return;};
+        failFunc = params.fail ? params.fail : function() {return;};
+        alwaysFunc = params.always ? params.always : function() {return;};
+    }
+
+    var that = this;
+    $.ajax({
+        url: this.fetchUrl,
+        type: this.fetchMethod,
+        data: data,
+        async: async,
+        statusCode: {
+            200: doneFunc
+        },
+        success: function(data) {
+            $.each(data, function(i, item) {
+                var md = Ribs.new(that.model, item);
+                that.models.push(md);
+            });
+        },
+        error: failFunc,
+        complete: alwaysFunc
+    });
+};
+
+_RibsCollection.prototype.update = function(params) {
+    this.ajax(this.updateUrl, this.updateMethod, params);
+};
+
+_RibsCollection.prototype.destory = function(params) {
+    this.ajax(this.deleteUrl, this.deleteMethod, params);
+};
+
+_RibsCollection.prototype.create = function(params) {
+    this.ajax(this.createUrl, this.createMethod, params);
+};
+
+_RibsCollection.prototype.ajax = function(url, method, params) {
     var data = params.data ? params.data : {};
+    var async = params.async ? params.async : true;
     var doneFunc = params.done ? params.done : function() {return;};
     var failFunc = params.fail ? params.fail : function() {return;};
     var alwaysFunc = params.always ? params.always : function() {return;};
-    $.get(this.url, data).done(doneFunc).fail(failFunc).always(alwaysFunc);
+    $.ajax({
+        url: url,
+        type: method,
+        data: data,
+        async: async
+    }).done(doneFunc).fail(failFunc).always(alwaysFunc);
+};
+
+_RibsCollection.prototype.size = function() {
+    return this.models.length;
 };
 
 var Ribs = new Ribs();

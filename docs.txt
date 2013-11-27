@@ -101,8 +101,18 @@ Ribs.Collection
     Create a new Ribs.Collection instance.
     json: the settings in JSON
         model: the initial Ribs.Model involved in this Ribs.Collection.
-        url: the access point for fetching data to this Ribs.Collection from server.
-        method: [optional] the accesing method (i.e. 'get', 'post', 'put', 'delete', etc.).
+        fetch: JSON to set the access point for fetching the Ribs.Model from server.
+            url: URL
+            method: Invoking method (i.e. 'get', 'post', 'put', 'delete', etc.).
+        update: JSON to set the access point for updating the Ribs.Model from server.
+            url: URL
+            method: Invoking method (i.e. 'get', 'post', 'put', 'delete', etc.).
+        create: JSON to set the access point for creating the Ribs.Model from server.
+            url: URL
+            method: Invoking method (i.e. 'get', 'post', 'put', 'delete', etc.).
+        destory: JSON to set the access point for destorying the Ribs.Model from server.
+            url: URL
+            method: Invoking method (i.e. 'get', 'post', 'put', 'delete', etc.).
         defaults: the default dataset of the instance.
         onchange: the functions that will be autoamatically executed when the specified 'defailts' element is changed.
 
@@ -115,10 +125,37 @@ Ribs.Collection
     json: the new JSON to be set.
 
     Ribs.Collection.fetch(json)
-    Fetch data from server.
+    Fetch data from server according to the 'fetch' settings.
     json: the settings of the fetch method.
         data: JSON of the form data to be sent to server.
+        async: [optional] the boolean value to identify if this call should be asynchronioused.
         done: the function that will be executed when the calling is successed.
         fail: the function that will be executed when the calling is failed.
         always: the function that will always be executed after the calling.
 
+    Ribs.Collection.update(json)
+    Fetch data from server according to the 'update' settings.
+    json: the settings of the update method.
+        data: JSON of the form data to be sent to server.
+        async: [optional] the boolean value to identify if this call should be asynchronioused.
+        done: the function that will be executed when the calling is successed.
+        fail: the function that will be executed when the calling is failed.
+        always: the function that will always be executed after the calling.
+
+    Ribs.Collection.create(json)
+    Fetch data from server according to the 'create' settings.
+    json: the settings of the create method.
+        data: JSON of the form data to be sent to server.
+        async: [optional] the boolean value to identify if this call should be asynchronioused.
+        done: the function that will be executed when the calling is successed.
+        fail: the function that will be executed when the calling is failed.
+        always: the function that will always be executed after the calling.
+        
+    Ribs.Collection.destory(json)
+    Fetch data from server according to the 'destory' settings.
+    json: the settings of the destory method.
+        data: JSON of the form data to be sent to server.
+        async: [optional] the boolean value to identify if this call should be asynchronioused.
+        done: the function that will be executed when the calling is successed.
+        fail: the function that will be executed when the calling is failed.
+        always: the function that will always be executed after the calling.
