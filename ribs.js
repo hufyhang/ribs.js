@@ -1,4 +1,6 @@
-function Ribs() {
+(function(){
+
+ function Ribs() {
     this.Model = new _RibsModel();
     this.Collection = new _RibsCollection();
     this.View = new _RibsView();
@@ -357,4 +359,9 @@ _RibsCollection.prototype.size = function() {
 };
 
 var Ribs = new Ribs();
-
+window['Ribs'] = {};
+window['Ribs']['new'] = Ribs.new;
+window['Ribs']['Model'] = Ribs.Model;
+window['Ribs']['Collection'] = Ribs.Collection;
+window['Ribs']['View'] = Ribs.View;
+})();
