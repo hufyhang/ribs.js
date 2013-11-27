@@ -4,29 +4,79 @@ function Ribs() {
     this.View = new _RibsView();
 }
 
+Ribs.prototype.new = function(obj, defaults) {
+    if(arguments.length === 1) {
+        var tempObj = Object.create(obj);
+        tempObj.initialize();
+        return tempObj;
+    }
+    else if(arguments.length === 2) {
+        var tempObj = _.clone(obj);
+        $.each(defaults, function(key, value) {
+            tempObj.defaults[key] = defaults[key];
+        });
+        tempObj.initialize();
+        return tempObj;
+    }
+    else {
+        return false;
+    }
+};
+
 function _RibsView() {
     this.json;
     this.el;
     this.events;
     this.renderFunc;
-    this.initilize;
+    this.immediate = function() {return;};
+    this.initialize = function() {return;};
+    this.defaults;
+    this.onchange;
 }
 
 _RibsView.prototype.extend = function(params) {
     var that = this;
     this.json = params;
     this.el = params.el;
-    if(params.hasOwnProperty('events')) {
+    if(params.events) {
         this.events = params.events;
     }
     this.renderFunc = params.render;
-    if(params.hasOwnProperty('initilize')) {
-        this.initilize = params.initilize;
+    if(params.immediate) {
+        this.immediate = params.immediate;
+    }
+    if(params.initialize) {
+        this.initialize = params.initialize;
+    }
+    if(params.defaults) {
+        this.defaults = params.defaults;
+    }
+    if(params.onchange) {
+        this.onchange = params.onchange;
     }
 
-    this.initilize();
+    this.immediate();
 
     return this;
+};
+
+_RibsView.prototype.changeEvent = function(defaultKey) {
+    if(this.onchange[defaultKey]) {
+        this.onchange[defaultKey]();
+    }
+}
+
+_RibsView.prototype.get = function(key) {
+    return this.defaults[key];
+};
+
+_RibsView.prototype.set = function(json) {
+    var that = this;
+    $.each(json, function(key, value) {
+        that.defaults[key] = json[key];
+        that.changeEvent(key);
+    });
+    return this.defaults;
 };
 
 _RibsView.prototype.render = function() {
@@ -47,10 +97,17 @@ function _RibsModel() {
     this.deleteMethod = 'post';
     this.createUrl;
     this.createMethod = 'post';
+    this.immediate = function() {return;};
+    this.initialize = function() {return;};
+    this.defaults;
+    this.onchange;
 }
 
 _RibsModel.prototype.extend = function(params) {
     var that = this;
+    if(params.onchange) {
+        this.onchange = params.onchange;
+    }
     if(params.fetch) {
         this.fetchUrl = params.fetch['url'];
         this.fetchMethod = params.fetch['method'] ? params.fetch['method'] : 'get';
@@ -67,9 +124,39 @@ _RibsModel.prototype.extend = function(params) {
         this.createUrl = params.create['url'];
         this.createMethod = params.create['method'] ? params.create['method'] : 'post';
     }
+    if(params.immediate) {
+        this.immediate = params.immediate;
+    }
+    if(params.initialize) {
+        this.initialize = params.initialize;
+    }
+    if(params.defaults) {
+        this.defaults = params.defaults;
+    }
+
+    this.immediate();
 
     return this;
 };
+
+_RibsModel.prototype.get = function(key) {
+    return this.defaults[key];
+};
+
+_RibsModel.prototype.set = function(json) {
+    var that = this;
+    $.each(json, function(key, value) {
+        that.defaults[key] = json[key];
+        that.changeEvent(key);
+    });
+    return this.defaults;
+};
+
+_RibsModel.prototype.changeEvent = function(defaultKey) {
+    if(this.onchange[defaultKey]) {
+        this.onchange[defaultKey]();
+    }
+}
 
 _RibsModel.prototype.fetch = function(params) {
     this.ajax(this.fetchUrl, this.fetchMethod, params);
@@ -106,20 +193,47 @@ function _RibsCollection() {
     this.models = [];
     this.url;
     this.method = 'get';
+    this.defaults;
+    this.onchange;
 }
 
 _RibsCollection.prototype.extend = function(params) {
     var that = this;
-    if(params.hasOwnProperty['model']) {
+    if(params.model) {
         this.model = params.model;
         this.models.push(this.model);
     }
     this.url = params.url;
-    if(params.hasOwnProperty['method']) {
+    if(params.method) {
         this.method = params.method;
+    }
+    if(params.defaults) {
+        this.defaults = params.defaults;
+    }
+    if(params.onchange) {
+        this.onchange = params.onchange;
     }
     return this;
 };
+
+_RibsCollection.prototype.get = function(key) {
+    return this.defaults[key];
+};
+
+_RibsCollection.prototype.set = function(json) {
+    var that = this;
+    $.each(json, function(key, value) {
+        that.defaults[key] = json[key];
+        that.changeEvent(key);
+    });
+    return this.defaults;
+};
+
+_RibsCollection.prototype.changeEvent = function(defaultKey) {
+    if(this.onchange[defaultKey]) {
+        this.onchange[defaultKey]();
+    }
+}
 
 _RibsCollection.prototype.fetch = function(params) {
     var data = params.data ? params.data : {};

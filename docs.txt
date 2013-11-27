@@ -1,0 +1,123 @@
+Ribs.JS
+
+Ribs.new(obj, defaults)
+    Clone an Ribs instance.
+    obj: the object that needs to be cloned.
+    defaults: [optional] the defaults JSON data of the newly cloned istance.
+
+Ribs.Model
+    Ribs.Model.extend(json)
+    Create a new Ribs.Model instance.
+    json: the settings in JSON
+        fetch: JSON to set the access point for fetching the Ribs.Model from server.
+            url: URL
+            method: Invoking method (i.e. 'get', 'post', 'put', 'delete', etc.).
+        update: JSON to set the access point for updating the Ribs.Model from server.
+            url: URL
+            method: Invoking method (i.e. 'get', 'post', 'put', 'delete', etc.).
+        create: JSON to set the access point for creating the Ribs.Model from server.
+            url: URL
+            method: Invoking method (i.e. 'get', 'post', 'put', 'delete', etc.).
+        destory: JSON to set the access point for destorying the Ribs.Model from server.
+            url: URL
+            method: Invoking method (i.e. 'get', 'post', 'put', 'delete', etc.).
+        immediate: the function that will be executed immediately after the Ribs instance is created.
+        initialize: the function that will be executed when a new instance is create by using Ribs.new against this Ribs instance.
+        defaults: the default dataset of the instance.
+        onchange: the functions that will be autoamatically executed when the specified 'defailts' element is changed.
+    
+    Ribs.Model.get(key)
+    Get a JSON value from default dataset.
+    key: the JSON key of the target element.
+
+    Ribs.Model.set(json)
+    Set/update the default dataset.
+    json: the new JSON to be set.
+
+    Ribs.Model.fetch(json)
+    Fetch data from server according to the 'fetch' settings.
+    json: the settings of the fetch method.
+        data: JSON of the form data to be sent to server.
+        async: [optional] the boolean value to identify if this call should be asynchronioused.
+        done: the function that will be executed when the calling is successed.
+        fail: the function that will be executed when the calling is failed.
+        always: the function that will always be executed after the calling.
+
+    Ribs.Model.update(json)
+    Fetch data from server according to the 'update' settings.
+    json: the settings of the update method.
+        data: JSON of the form data to be sent to server.
+        async: [optional] the boolean value to identify if this call should be asynchronioused.
+        done: the function that will be executed when the calling is successed.
+        fail: the function that will be executed when the calling is failed.
+        always: the function that will always be executed after the calling.
+
+    Ribs.Model.create(json)
+    Fetch data from server according to the 'create' settings.
+    json: the settings of the create method.
+        data: JSON of the form data to be sent to server.
+        async: [optional] the boolean value to identify if this call should be asynchronioused.
+        done: the function that will be executed when the calling is successed.
+        fail: the function that will be executed when the calling is failed.
+        always: the function that will always be executed after the calling.
+        
+    Ribs.Model.destory(json)
+    Fetch data from server according to the 'destory' settings.
+    json: the settings of the destory method.
+        data: JSON of the form data to be sent to server.
+        async: [optional] the boolean value to identify if this call should be asynchronioused.
+        done: the function that will be executed when the calling is successed.
+        fail: the function that will be executed when the calling is failed.
+        always: the function that will always be executed after the calling.
+
+Ribs.View
+    Ribs.View.extend(json)
+    Create a new Ribs.View instance.
+    json: the settings in JSON
+        el: the DOM element that will be used to display the view instance.
+        events: the events binding of the view instance.
+            on: the event trigger.
+            do: the name of the function that will be called when the trigger is fired. This function should be defined as a part of 'json'.
+            e.g.: {'#btn': {on: 'click', do: 'showInfo'}}
+        immediate: the function that will be executed immediately after the Ribs instance is created.
+        initialize: the function that will be executed when a new instance is create by using Ribs.new against this Ribs instance.
+        defaults: the default dataset of the instance.
+        onchange: the functions that will be autoamatically executed when the specified 'defailts' element is changed.
+
+    Ribs.View.get(key)
+    Get a JSON value from default dataset.
+    key: the JSON key of the target element.
+
+    Ribs.View.set(json)
+    Set/update the default dataset.
+    json: the new JSON to be set.
+
+    Ribs.View.render()
+    Render the Ribs.View instance in its 'el'.
+
+Ribs.Collection
+    Ribs.Collection.extend(json)
+    Create a new Ribs.Collection instance.
+    json: the settings in JSON
+        model: the initial Ribs.Model involved in this Ribs.Collection.
+        url: the access point for fetching data to this Ribs.Collection from server.
+        method: [optional] the accesing method (i.e. 'get', 'post', 'put', 'delete', etc.).
+        defaults: the default dataset of the instance.
+        onchange: the functions that will be autoamatically executed when the specified 'defailts' element is changed.
+
+    Ribs.Collection.get(key)
+    Get a JSON value from default dataset.
+    key: the JSON key of the target element.
+
+    Ribs.Collection.set(json)
+    Set/update the default dataset.
+    json: the new JSON to be set.
+
+    Ribs.Collection.fetch(json)
+    Fetch data from server.
+    json: the settings of the fetch method.
+        data: JSON of the form data to be sent to server.
+        done: the function that will be executed when the calling is successed.
+        fail: the function that will be executed when the calling is failed.
+        always: the function that will always be executed after the calling.
+
