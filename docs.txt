@@ -161,3 +161,14 @@ Ribs.Collection
         done: the function that will be executed when the calling is successed.
         fail: the function that will be executed when the calling is failed.
         always: the function that will always be executed after the calling.
+
+Ribs.Router
+    Ribs.Router.route(json)
+    Set routing.
+    json: the settings in JSON
+        e.g.: {'': function() {alert(...);}, 'home': function() {return;}}
+
+    Ribs.Router.navigate(url)
+    Redirect the page to a URL.
+    url: the reditection destination.
+

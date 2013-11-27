@@ -1,9 +1,10 @@
 (function(){
 
- function Ribs() {
+function Ribs() {
     this.Model = new _RibsModel();
     this.Collection = new _RibsCollection();
     this.View = new _RibsView();
+    this.Router = new _Router();
 }
 
 Ribs.prototype.new = function(obj, defaults) {
@@ -358,10 +359,23 @@ _RibsCollection.prototype.size = function() {
     return this.models.length;
 };
 
+function _Router() {
+}
+
+_Router.prototype.route = function(params) {
+    this.route = routie(params);
+    return this;
+}
+
+_Router.prototype.navigate = function(url) {
+    routie(url);
+};
+
 var Ribs = new Ribs();
 window['Ribs'] = {};
 window['Ribs']['new'] = Ribs.new;
 window['Ribs']['Model'] = Ribs.Model;
 window['Ribs']['Collection'] = Ribs.Collection;
 window['Ribs']['View'] = Ribs.View;
+window['Ribs']['Router'] = Ribs.Router;
 })();
