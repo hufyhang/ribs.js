@@ -21,7 +21,6 @@ Ribs.Model
         destory: JSON to set the access point for destorying the Ribs.Model from server.
             url: URL
             method: Invoking method (i.e. 'get', 'post', 'put', 'delete', etc.).
-        immediate: the function that will be executed immediately after the Ribs instance is created.
         initialize: the function that will be executed when a new instance is create by using Ribs.new against this Ribs instance.
         defaults: the default dataset of the instance.
         onchange: the functions that will be autoamatically executed when the specified 'defailts' element is changed.
@@ -79,7 +78,7 @@ Ribs.View
             on: the event trigger.
             do: the name of the function that will be called when the trigger is fired. This function should be defined as a part of 'json'.
             e.g.: {'#btn': {on: 'click', do: 'showInfo'}}
-        immediate: the function that will be executed immediately after the Ribs instance is created.
+        template: the template that will be used to render the view.
         initialize: the function that will be executed when a new instance is create by using Ribs.new against this Ribs instance.
         defaults: the default dataset of the instance.
         onchange: the functions that will be autoamatically executed when the specified 'defailts' element is changed.
@@ -113,7 +112,6 @@ Ribs.Collection
             url: URL
             method: Invoking method (i.e. 'get', 'post', 'put', 'delete', etc.).
         defaults: the default dataset of the instance.
-        immediate: the function that will be executed immediately after the Ribs instance is created.
         initialize: the function that will be executed when a new instance is create by using Ribs.new against this Ribs instance.
         onchange: the functions that will be autoamatically executed when the specified 'defailts' element is changed.
 
