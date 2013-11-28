@@ -323,9 +323,9 @@ _RibsCollection.prototype.adopt = function(params, object) {
     }
     else if(arguments.length === 2) {
         obj = object;
+        obj.json = params;
     }
     
-    obj.json = params;
     $.each(params, function(item) {
         var val = params[item];
         if(item === 'model') {
