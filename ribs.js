@@ -137,7 +137,7 @@ _RibsView.prototype.render = function() {
 
     // add events listener
     for(event in this.events) {
-        $(event).on(this.events[event]['on'], this.json[this.events[event]['do']]);
+        $(event).on(this.events[event]['on'], {self: this}, this.json[this.events[event]['do']]);
     }
 };
 
