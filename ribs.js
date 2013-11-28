@@ -37,15 +37,15 @@ Ribs.prototype.transferSettings = function(obj) {
     alert('Type: ' + obj._type);
     if(obj._type === 'Ribs.View') {
         alert('Check View');
-        newObj = Ribs.View.extend(obj.json);
+        newObj = Ribs.View.new(obj.json);
     }
     else if(obj._type === 'Ribs.Model') {
         alert('Check Model');
-        newObj = Ribs.Model.extend(obj.json);
+        newObj = Ribs.Model.new(obj.json);
     }
     else if(obj._type === 'Ribs.Collection') {
         alert('Check Collection');
-        newObj = Ribs.Collection.extend(obj.json);
+        newObj = Ribs.Collection.new(obj.json);
     }
     else {
         newObj = false;
@@ -66,11 +66,25 @@ function _RibsView() {
     this.onchange;
 }
 
-_RibsView.prototype.extend = function(params) {
+_RibsView.prototype.new = function(params) {
     var obj = Object.create(this);
 
-    var that = obj;
-    that.json = params;
+    obj = obj.adopt(params, obj);
+
+    this.self = obj;
+    return obj;
+};
+
+_RibsView.prototype.adopt = function(params, object) {
+    var obj;
+    if(arguments.length === 1) {
+        obj = this;
+    }
+    else if(arguments.length === 2) {
+        obj = object;
+        obj.json = params;
+    }
+
     $.each(params, function(item) {
         var val = params[item];
         if(item === 'el') {
@@ -105,9 +119,9 @@ _RibsView.prototype.extend = function(params) {
         }
     });
 
-    this.self = obj;
     return obj;
-};
+}
+
 
 _RibsView.prototype.changeEvent = function(defaultKey) {
     if(this.onchange[defaultKey]) {
@@ -158,10 +172,25 @@ function _RibsModel() {
     this.onchange;
 }
 
-_RibsModel.prototype.extend = function(params) {
+_RibsModel.prototype.new = function(params) {
     var obj = Object.create(this);
-    var that = obj;
-    that.json = params;
+
+    obj = obj.adopt(params, obj);
+
+    this.self = obj;
+    return obj;
+};
+
+_RibsModel.prototype.adopt = function(params, object) {
+    var obj;
+    if(arguments.length === 1) {
+        obj = this;
+    }
+    else if(arguments.length === 2) {
+        obj = object;
+        obj.json = params;
+    }
+    
     $.each(params, function(item) {
         var val = params[item];
         if(item === 'fetch') {
@@ -200,9 +229,9 @@ _RibsModel.prototype.extend = function(params) {
         }
     });
 
-    this.self = obj;
     return obj;
-};
+}
+
 
 _RibsModel.prototype.get = function(key) {
     return this.defaults[key];
@@ -278,10 +307,25 @@ function _RibsCollection() {
     this.onchange;
 }
 
-_RibsCollection.prototype.extend = function(params) {
+_RibsCollection.prototype.new = function(params) {
     var obj = Object.create(this);
-    var that = obj;
-    that.json = params;
+
+    obj = obj.adopt(params, obj);
+
+    this.self = obj;
+    return obj;
+};
+
+_RibsCollection.prototype.adopt = function(params, object) {
+    var obj;
+    if(arguments.length === 1) {
+        obj = this;
+    }
+    else if(arguments.length === 2) {
+        obj = object;
+    }
+    
+    obj.json = params;
     $.each(params, function(item) {
         var val = params[item];
         if(item === 'model') {
@@ -323,10 +367,9 @@ _RibsCollection.prototype.extend = function(params) {
         }
     });
 
-    this.self = obj;
     return obj;
-};
-
+}
+    
 _RibsCollection.prototype.get = function(key) {
     return this.defaults[key];
 };

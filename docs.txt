@@ -6,7 +6,7 @@ Ribs.new(obj, defaults)
     defaults: [optional] the defaults JSON data of the newly cloned istance.
 
 Ribs.Model
-    Ribs.Model.extend(json)
+    Ribs.Model.new(json)
     Create a new Ribs.Model instance.
     json: the settings in JSON
         fetch: JSON to set the access point for fetching the Ribs.Model from server.
@@ -24,6 +24,10 @@ Ribs.Model
         initialize: the function that will be executed when a new instance is create by using Ribs.new against this Ribs instance.
         defaults: the default dataset of the instance.
         onchange: the functions that will be autoamatically executed when the specified 'defailts' element is changed.
+
+    Ribs.Model.adopt(json)
+    Update settings according to 'json'.
+    json: settings JSON
     
     Ribs.Model.get(key)
     Get a JSON value from default dataset.
@@ -70,7 +74,7 @@ Ribs.Model
         always: the function that will always be executed after the calling.
 
 Ribs.View
-    Ribs.View.extend(json)
+    Ribs.View.new(json)
     Create a new Ribs.View instance.
     json: the settings in JSON
         el: the DOM element that will be used to display the view instance.
@@ -82,6 +86,10 @@ Ribs.View
         initialize: the function that will be executed when a new instance is create by using Ribs.new against this Ribs instance.
         defaults: the default dataset of the instance.
         onchange: the functions that will be autoamatically executed when the specified 'defailts' element is changed.
+
+    Ribs.View.adopt(json)
+    Update settings according to 'json'.
+    json: settings JSON
 
     Ribs.View.get(key)
     Get a JSON value from default dataset.
@@ -95,7 +103,7 @@ Ribs.View
     Render the Ribs.View instance in its 'el'.
 
 Ribs.Collection
-    Ribs.Collection.extend(json)
+    Ribs.Collection.new(json)
     Create a new Ribs.Collection instance.
     json: the settings in JSON
         model: the initial Ribs.Model involved in this Ribs.Collection.
@@ -114,6 +122,10 @@ Ribs.Collection
         defaults: the default dataset of the instance.
         initialize: the function that will be executed when a new instance is create by using Ribs.new against this Ribs instance.
         onchange: the functions that will be autoamatically executed when the specified 'defailts' element is changed.
+
+    Ribs.Model.adopt(json)
+    Update settings according to 'json'.
+    json: settings JSON
 
     Ribs.Collection.get(key)
     Get a JSON value from default dataset.
