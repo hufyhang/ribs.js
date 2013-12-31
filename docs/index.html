@@ -1,0 +1,326 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Feifei Hang" />
+  <title>Ribs.js Documentations</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" href="./style.css" type="text/css" />
+</head>
+<body>
+<div id="header">
+<h1 class="title">Ribs.js Documentations</h1>
+<h2 class="author">Feifei Hang</h2>
+<h3 class="date">Last updated: 25 Dec 2013</h3>
+</div>
+<div id="TOC">
+<ul>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#ribs.newobj-defaults">Ribs.new(<code>obj, defaults</code>)</a></li>
+<li><a href="#ribs.model">Ribs.Model</a><ul>
+<li><a href="#ribs.model.newjson">Ribs.Model.new(<code>json</code>)</a></li>
+<li><a href="#ribs.model.adoptjson">Ribs.Model.adopt(<code>json</code>)</a></li>
+<li><a href="#ribs.model.getkey">Ribs.Model.get(<code>key</code>)</a></li>
+<li><a href="#ribs.model.setjson">Ribs.Model.set(<code>json</code>)</a></li>
+<li><a href="#ribs.model.fetchjson">Ribs.Model.fetch(<code>json</code>)</a></li>
+<li><a href="#ribs.model.updatejson">Ribs.Model.update(<code>json</code>)</a></li>
+<li><a href="#ribs.model.createjson">Ribs.Model.create(<code>json</code>)</a></li>
+<li><a href="#ribs.model.destoryjson">Ribs.Model.destory(<code>json</code>)</a></li>
+</ul></li>
+<li><a href="#ribs.view">Ribs.View</a><ul>
+<li><a href="#ribs.view.newjson">Ribs.View.new(<code>json</code>)</a></li>
+<li><a href="#ribs.view.adoptjson">Ribs.View.adopt(<code>json</code>)</a></li>
+<li><a href="#ribs.view.getkey">Ribs.View.get(<code>key</code>)</a></li>
+<li><a href="#ribs.view.setjson">Ribs.View.set(<code>json</code>)</a></li>
+<li><a href="#ribs.view.render">Ribs.View.render()</a></li>
+</ul></li>
+<li><a href="#ribs.collection">Ribs.Collection</a><ul>
+<li><a href="#ribs.collection.newjson">Ribs.Collection.new(<code>json</code>)</a></li>
+<li><a href="#ribs.collection.adoptjson">Ribs.Collection.adopt(<code>json</code>)</a></li>
+<li><a href="#ribs.collection.getkey">Ribs.Collection.get(<code>key</code>)</a></li>
+<li><a href="#ribs.collection.setjson">Ribs.Collection.set(<code>json</code>)</a></li>
+<li><a href="#ribs.collection.fetchjson">Ribs.Collection.fetch(<code>json</code>)</a></li>
+<li><a href="#ribs.collection.updatejson">Ribs.Collection.update(<code>json</code>)</a></li>
+<li><a href="#ribs.collection.createjson">Ribs.Collection.create(<code>json</code>)</a></li>
+<li><a href="#ribs.collection.destoryjson">Ribs.Collection.destory(<code>json</code>)</a></li>
+<li><a href="#ribs.collection.size">Ribs.Collection.size()</a></li>
+</ul></li>
+<li><a href="#ribs.router">Ribs.Router</a><ul>
+<li><a href="#ribs.router.routejson">Ribs.Router.route(<code>json</code>)</a></li>
+<li><a href="#ribs.router.navigateurl">Ribs.Router.navigate(<code>url</code>)</a></li>
+</ul></li>
+<li><a href="#ribs-good-practice">Ribs Good Practice</a><ul>
+<li><a href="#defining-functions-for-a-ribs.view">Defining functions for a Ribs.View</a></li>
+</ul></li>
+</ul>
+</div>
+<h1 id="installation"><a href="#installation">Installation</a></h1>
+<p>The minified Ribs.js library is available at:</p>
+<p><a href="http://feifeihang.info/ribs/ribs.min.js">http://feifeihang.info/ribs/ribs.min.js</a></p>
+<h1 id="ribs.newobj-defaults"><a href="#ribs.newobj-defaults">Ribs.new(<code>obj, defaults</code>)</a></h1>
+<p><a name="ribs_new"></a>Clone an Ribs instance.</p>
+<p><code>obj</code>: the object that needs to be cloned.</p>
+<p><code>defaults</code>: [<strong>optional</strong>] the defaults JSON data of the newly cloned istance.</p>
+<h1 id="ribs.model"><a href="#ribs.model">Ribs.Model</a></h1>
+<h2 id="ribs.model.newjson"><a href="#ribs.model.newjson">Ribs.Model.new(<code>json</code>)</a></h2>
+<p>Create a new Ribs.Model instance.</p>
+<p><code>json</code>: the settings in JSON</p>
+<ul>
+<li><code>fetch</code>: JSON to set the access point for fetching the Ribs.Model from server.
+<ul>
+<li><code>url</code>: URL</li>
+<li><code>method</code>: Invoking method (<em>i.e. 'get', 'post', 'put', 'delete', etc.</em>).</li>
+</ul></li>
+<li><code>update</code>: JSON to set the access point for updating the Ribs.Model from server.
+<ul>
+<li><code>url</code>: URL</li>
+<li><code>method</code>: Invoking method (<em>i.e. 'get', 'post', 'put', 'delete', etc.</em>).</li>
+</ul></li>
+<li><code>create</code>: JSON to set the access point for creating the Ribs.Model from server.
+<ul>
+<li><code>url</code>: URL</li>
+<li><code>method</code>: Invoking method (<em>i.e. 'get', 'post', 'put', 'delete', etc.</em>).</li>
+</ul></li>
+<li><code>destory</code>: JSON to set the access point for destorying the Ribs.Model from server.
+<ul>
+<li><code>url</code>: URL</li>
+<li><code>method</code>: Invoking method (<em>i.e. 'get', 'post', 'put', 'delete', etc.</em>).</li>
+</ul></li>
+<li><code>initialize</code>: the function that will be executed when a new instance is create by using Ribs.new against this Ribs instance.</li>
+<li><code>defaults</code>: the default dataset of the instance.</li>
+<li><code>onchange</code>: the functions that will be autoamatically executed when the specified 'defailts' element is changed.</li>
+</ul>
+<h2 id="ribs.model.adoptjson"><a href="#ribs.model.adoptjson">Ribs.Model.adopt(<code>json</code>)</a></h2>
+<p>Update settings according to 'json'.</p>
+<p><code>json</code>: settings JSON</p>
+<h2 id="ribs.model.getkey"><a href="#ribs.model.getkey">Ribs.Model.get(<code>key</code>)</a></h2>
+<p>Get a JSON value from default dataset.</p>
+<p><code>key</code>: the JSON key of the target element.</p>
+<h2 id="ribs.model.setjson"><a href="#ribs.model.setjson">Ribs.Model.set(<code>json</code>)</a></h2>
+<p>Set/update the default dataset.</p>
+<p><code>json</code>: the new JSON to be set.</p>
+<h2 id="ribs.model.fetchjson"><a href="#ribs.model.fetchjson">Ribs.Model.fetch(<code>json</code>)</a></h2>
+<p>Fetch data from server according to the '<code>fetch</code>' settings.</p>
+<p><code>json</code>: the settings of the fetch method.</p>
+<ul>
+<li><code>data</code>: JSON of the form data to be sent to server.</li>
+<li><code>async</code>: [<strong>optional</strong>] the boolean value to identify if this call should be asynchronioused.</li>
+<li><code>done</code>: the function that will be executed when the calling is successed.</li>
+<li><code>fail</code>: the function that will be executed when the calling is failed.</li>
+<li><code>always</code>: the function that will always be executed after the calling.</li>
+</ul>
+<h2 id="ribs.model.updatejson"><a href="#ribs.model.updatejson">Ribs.Model.update(<code>json</code>)</a></h2>
+<p>Fetch data from server according to the '<code>update</code>' settings.</p>
+<p><code>json</code>: the settings of the update method.</p>
+<ul>
+<li><code>data</code>: JSON of the form data to be sent to server.</li>
+<li><code>async</code>: [<strong>optional</strong>] the boolean value to identify if this call should be asynchronioused.</li>
+<li><code>done</code>: the function that will be executed when the calling is successed.</li>
+<li><code>fail</code>: the function that will be executed when the calling is failed.</li>
+<li><code>always</code>: the function that will always be executed after the calling.</li>
+</ul>
+<h2 id="ribs.model.createjson"><a href="#ribs.model.createjson">Ribs.Model.create(<code>json</code>)</a></h2>
+<p>Fetch data from server according to the '<code>create</code>' settings.</p>
+<p><code>json</code>: the settings of the create method.</p>
+<ul>
+<li><code>data</code>: JSON of the form data to be sent to server.</li>
+<li><code>async</code>: [<strong>optional</strong>] the boolean value to identify if this call should be asynchronioused.</li>
+<li><code>done</code>: the function that will be executed when the calling is successed.</li>
+<li><code>fail</code>: the function that will be executed when the calling is failed.</li>
+<li><code>always</code>: the function that will always be executed after the calling.</li>
+</ul>
+<h2 id="ribs.model.destoryjson"><a href="#ribs.model.destoryjson">Ribs.Model.destory(<code>json</code>)</a></h2>
+<p>Fetch data from server according to the '<code>destory</code>' settings.</p>
+<p><code>json</code>: the settings of the destory method.</p>
+<ul>
+<li><code>data</code>: JSON of the form data to be sent to server.</li>
+<li><code>async</code>: [<strong>optional</strong>] the boolean value to identify if this call should be asynchronioused.</li>
+<li><code>done</code>: the function that will be executed when the calling is successed.</li>
+<li><code>fail</code>: the function that will be executed when the calling is failed.</li>
+<li><code>always</code>: the function that will always be executed after the calling.</li>
+</ul>
+<h1 id="ribs.view"><a href="#ribs.view">Ribs.View</a></h1>
+<h2 id="ribs.view.newjson"><a href="#ribs.view.newjson">Ribs.View.new(<code>json</code>)</a></h2>
+<p>Create a new Ribs.View instance.</p>
+<p><code>json</code>: the settings in JSON</p>
+<ul>
+<li><code>el</code>: the DOM element that will be used to display the view instance.</li>
+<li><code>events</code>: the events binding of the view instance.</li>
+<li><code>on</code>: the event trigger.</li>
+<li><p><code>do</code>: the name of the function that will be called when the trigger is fired. This function should be defined as a part of 'json'.</p>
+<p>e.g.: <code>{'#btn': {on: 'click', do: 'showInfo'}}</code></p></li>
+<li><code>template</code>: the template that will be used to render the view.</li>
+<li><code>initialize</code>: the function that will be executed when a new instance is create by using Ribs.new against this Ribs instance.</li>
+<li><code>defaults</code>: the default dataset of the instance.</li>
+<li><p><code>onchange</code>: the functions that will be autoamatically executed when the specified '<code>defaults</code>' element is changed.</p></li>
+</ul>
+<p><strong>Good Practice:</strong> <a href="#ribs-view-functions">Defining functions for Ribs.View</a></p>
+<h2 id="ribs.view.adoptjson"><a href="#ribs.view.adoptjson">Ribs.View.adopt(<code>json</code>)</a></h2>
+<p>Update settings according to '<code>json</code>'.</p>
+<p><code>json</code>: settings JSON</p>
+<h2 id="ribs.view.getkey"><a href="#ribs.view.getkey">Ribs.View.get(<code>key</code>)</a></h2>
+<p>Get a JSON value from default dataset.</p>
+<p><code>key</code>: the JSON key of the target element.</p>
+<h2 id="ribs.view.setjson"><a href="#ribs.view.setjson">Ribs.View.set(<code>json</code>)</a></h2>
+<p>Set/update the default dataset.</p>
+<p><code>json</code>: the new JSON to be set.</p>
+<h2 id="ribs.view.render"><a href="#ribs.view.render">Ribs.View.render()</a></h2>
+<p>Render the Ribs.View instance in its '<code>el</code>'.</p>
+<h1 id="ribs.collection"><a href="#ribs.collection">Ribs.Collection</a></h1>
+<h2 id="ribs.collection.newjson"><a href="#ribs.collection.newjson">Ribs.Collection.new(<code>json</code>)</a></h2>
+<p>Create a new Ribs.Collection instance.</p>
+<p><code>json</code>: the settings in JSON</p>
+<ul>
+<li><code>model</code>: the initial Ribs.Model involved in this Ribs.Collection.</li>
+<li><code>fetch</code>: JSON to set the access point for fetching the Ribs.Model from server.</li>
+<li><code>url</code>: URL</li>
+<li><code>method</code>: Invoking method (<em>i.e. 'get', 'post', 'put', 'delete', etc.</em>).</li>
+<li><code>update</code>: JSON to set the access point for updating the Ribs.Model from server.</li>
+<li><code>url</code>: URL</li>
+<li><code>method</code>: Invoking method (<em>i.e. 'get', 'post', 'put', 'delete', etc.</em>).</li>
+<li><code>create</code>: JSON to set the access point for creating the Ribs.Model from server.</li>
+<li><code>url</code>: URL</li>
+<li><code>method</code>: Invoking method (<em>i.e. 'get', 'post', 'put', 'delete', etc.</em>).</li>
+<li><code>destory</code>: JSON to set the access point for destorying the Ribs.Model from server.</li>
+<li><code>url</code>: URL</li>
+<li><code>method</code>: Invoking method (<em>i.e. 'get', 'post', 'put', 'delete', etc.</em>).</li>
+<li><code>defaults</code>: the default dataset of the instance.</li>
+<li><code>initialize</code>: the function that will be executed when a new instance is create by using <a href="#ribs_new">Ribs.new</a> against this Ribs instance.</li>
+<li><code>onchange</code>: the functions that will be autoamatically executed when the specified '<code>defaults</code>' element is changed.</li>
+</ul>
+<h2 id="ribs.collection.adoptjson"><a href="#ribs.collection.adoptjson">Ribs.Collection.adopt(<code>json</code>)</a></h2>
+<p>Update settings according to '<code>json</code>'.</p>
+<p><code>json</code>: settings JSON</p>
+<h2 id="ribs.collection.getkey"><a href="#ribs.collection.getkey">Ribs.Collection.get(<code>key</code>)</a></h2>
+<p>Get a JSON value from default dataset.</p>
+<p><code>key</code>: the JSON key of the target element.</p>
+<h2 id="ribs.collection.setjson"><a href="#ribs.collection.setjson">Ribs.Collection.set(<code>json</code>)</a></h2>
+<p>Set/update the default dataset.</p>
+<p><code>json</code>: the new JSON to be set.</p>
+<h2 id="ribs.collection.fetchjson"><a href="#ribs.collection.fetchjson">Ribs.Collection.fetch(<code>json</code>)</a></h2>
+<p>Fetch data from server according to the '<code>fetch</code>' settings.</p>
+<p><code>json</code>: the settings of the fetch method.</p>
+<ul>
+<li><code>data</code>: JSON of the form data to be sent to server.</li>
+<li><code>async</code>: [<strong>optional</strong>] the boolean value to identify if this call should be asynchronioused.</li>
+<li><code>done</code>: the function that will be executed when the calling is successed.</li>
+<li><code>fail</code>: the function that will be executed when the calling is failed.</li>
+<li><code>always</code>: the function that will always be executed after the calling.</li>
+</ul>
+<h2 id="ribs.collection.updatejson"><a href="#ribs.collection.updatejson">Ribs.Collection.update(<code>json</code>)</a></h2>
+<p>Fetch data from server according to the '<code>update</code>' settings.</p>
+<ul>
+<li><code>json</code>: the settings of the update method.</li>
+<li><code>data</code>: JSON of the form data to be sent to server.</li>
+<li><code>async</code>: [<strong>optional</strong>] the boolean value to identify if this call should be asynchronioused.</li>
+<li><code>done</code>: the function that will be executed when the calling is successed.</li>
+<li><code>fail</code>: the function that will be executed when the calling is failed.</li>
+<li><code>always</code>: the function that will always be executed after the calling.</li>
+</ul>
+<h2 id="ribs.collection.createjson"><a href="#ribs.collection.createjson">Ribs.Collection.create(<code>json</code>)</a></h2>
+<p>Fetch data from server according to the '<code>create</code>' settings.</p>
+<p><code>json</code>: the settings of the create method.</p>
+<ul>
+<li><code>data</code>: JSON of the form data to be sent to server.</li>
+<li><code>async</code>: [<strong>optional</strong>] the boolean value to identify if this call should be asynchronioused.</li>
+<li><code>done</code>: the function that will be executed when the calling is successed.</li>
+<li><code>fail</code>: the function that will be executed when the calling is failed.</li>
+<li><code>always</code>: the function that will always be executed after the calling.</li>
+</ul>
+<h2 id="ribs.collection.destoryjson"><a href="#ribs.collection.destoryjson">Ribs.Collection.destory(<code>json</code>)</a></h2>
+<p>Fetch data from server according to the '<code>destory</code>' settings.</p>
+<p><code>json</code>: the settings of the destory method.</p>
+<ul>
+<li><code>data</code>: JSON of the form data to be sent to server.</li>
+<li><code>async</code>: [<strong>optional</strong>] the boolean value to identify if this call should be asynchronioused.</li>
+<li><code>done</code>: the function that will be executed when the calling is successed.</li>
+<li><code>fail</code>: the function that will be executed when the calling is failed.</li>
+<li><code>always</code>: the function that will always be executed after the calling.</li>
+</ul>
+<h2 id="ribs.collection.size"><a href="#ribs.collection.size">Ribs.Collection.size()</a></h2>
+<p>Return the size of the Ribs collection.</p>
+<h1 id="ribs.router"><a href="#ribs.router">Ribs.Router</a></h1>
+<p><strong>Dependency: <a href="http://projects.jga.me/routie">routie.js</a></strong></p>
+<h2 id="ribs.router.routejson"><a href="#ribs.router.routejson">Ribs.Router.route(<code>json</code>)</a></h2>
+<p>Set routing.</p>
+<p><code>json</code>: the settings in JSON</p>
+<p>e.g.:</p>
+<pre class="sourceCode json"><code class="sourceCode json">{
+    <span class="er">&#39;&#39;</span>: <span class="er">function()</span> {
+        <span class="er">alert(...);</span>
+    }, 
+    <span class="er">&#39;home&#39;</span>: <span class="er">function()</span> {
+        <span class="er">return;</span>
+    }
+}</code></pre>
+<h2 id="ribs.router.navigateurl"><a href="#ribs.router.navigateurl">Ribs.Router.navigate(<code>url</code>)</a></h2>
+<p>Redirect the page to a URL.</p>
+<p><code>url</code>: the reditection destination.</p>
+<h1 id="ribs-good-practice"><a href="#ribs-good-practice">Ribs Good Practice</a></h1>
+<h2 id="defining-functions-for-a-ribs.view"><a href="#defining-functions-for-a-ribs.view">Defining functions for a Ribs.View</a></h2>
+<p><a name="ribs-view-functions"></a> When defining functions for a Ribs.View, the <strong>data members</strong> involved in the function code blocks <strong>are independent</strong> from the definition of Ribs.View itself. To use the data members or functions even contained by the Ribs.View itself, an explicit include/import is necessary.</p>
+<p>To refer the Ribs.View instance itself in <code>events</code> actions, passing a parameter such as <code>evt</code> to the action, and then use <code>var self = evt.data.self;</code> instead of pointer <code>this</code>.</p>
+<p>Example:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> date = <span class="kw">new</span> <span class="fu">Date</span>();
+<span class="kw">var</span> user = <span class="ot">Ribs</span>.<span class="ot">Model</span>.<span class="fu">new</span>(...);
+
+<span class="kw">var</span> UserView = <span class="ot">Ribs</span>.<span class="ot">View</span>.<span class="fu">new</span>({
+    <span class="dt">el</span>: <span class="fu">$</span>(<span class="st">&quot;body&quot;</span>),
+    <span class="dt">template</span>: <span class="fu">$</span>(<span class="st">&quot;user-view-template&quot;</span>).<span class="fu">html</span>(),
+    <span class="dt">defaults</span>: {
+        sys-<span class="dt">date</span>: date
+    },
+    <span class="dt">render</span>: <span class="kw">function</span>() {
+        <span class="kw">this</span>.<span class="ot">el</span>.<span class="fu">html</span>(<span class="ot">_</span>.<span class="fu">template</span>(<span class="kw">this</span>.<span class="fu">template</span>), {<span class="dt">data</span>: <span class="kw">this</span>.<span class="fu">get</span>(<span class="st">&quot;sys-date&quot;</span>)});
+    },
+    <span class="dt">initialize</span>: <span class="kw">function</span>() {
+        <span class="kw">this</span>.<span class="fu">render</span>();
+    },
+    <span class="dt">events</span>: {
+        <span class="st">&quot;#ok-btn&quot;</span>: {
+            <span class="dt">on</span>: <span class="st">&quot;click&quot;</span>,
+            <span class="kw">do</span>: <span class="st">&quot;showInfo&quot;</span>
+        }
+    },
+    <span class="dt">showInfo</span>: <span class="kw">function</span>(e) {
+        <span class="co">// point self to the instance</span>
+        <span class="kw">var</span> self = <span class="ot">e</span>.<span class="ot">data</span>.<span class="fu">self</span>;
+
+        <span class="co">// include external data members/instances</span>
+        <span class="ot">self</span>.<span class="fu">set</span>({
+            <span class="dt">user</span>: user,
+        });
+
+        <span class="co">// invoke functions</span>
+        <span class="ot">console</span>.<span class="fu">log</span>(<span class="ot">self</span>.<span class="fu">get</span>(<span class="st">&quot;sys-date&quot;</span>));
+        <span class="ot">console</span>.<span class="fu">log</span>(<span class="ot">self</span>.<span class="fu">get</span>(<span class="st">&quot;user&quot;</span>).<span class="fu">someFunction</span>());
+    },
+    <span class="dt">nonActionFunc</span>: <span class="kw">function</span>() {
+        <span class="co">// &#39;this&#39; can be used in non-action functions</span>
+        <span class="ot">console</span>.<span class="fu">log</span>(<span class="kw">this</span>.<span class="fu">get</span>(<span class="st">&quot;sys-date&quot;</span>);
+    }
+
+});</code></pre>
+</body>
+</html>
