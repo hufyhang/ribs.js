@@ -1,6 +1,10 @@
-% Ribs.js Documentations
-% Feifei Hang
-% Last updated: 25 Dec 2013
+## Ribs.js
+
+Ribs.js is designed to be a light-weight MVC framework for Web front-end development. Unlike other MVX frameworks (e.g. Backbone.js) Ribs.js is primarily used with *non-RESTful* Web services/APIs.
+
+Ribs.js is currently at **Alpha** stage, please report any bugs encountered or raise pull requests.
+
+A standalone copy of this documentation can be found from Ribs.js's [homepage](http://feifeihang.info/ribs/).
 
 Installation
 ============
