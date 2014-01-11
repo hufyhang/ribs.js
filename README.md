@@ -138,11 +138,11 @@ Create a new Ribs.View instance.
 `json`: the settings in JSON
 
 * `el`: the DOM element that will be used to display the view instance.
-* `events`: the events binding of the view instance.
+* `events`: the events binding of the view instance (has to be an array).
    - `on`: the event trigger.
    - `do`: the name of the function that will be called when the trigger is fired. This function should be defined as a part of 'json'.
 
-       e.g.: `{'#btn': {on: 'click', do: 'showInfo'}}`
+       e.g.: `{'#btn': [{on: 'click', do: 'showInfo'}]}`
 
 * `template`: the template that will be used to render the view.
 * `initialize`: the function that will be executed when a new instance is create by using Ribs.create against this Ribs instance.
