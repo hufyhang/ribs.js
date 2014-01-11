@@ -6,6 +6,12 @@ Ribs.js is currently at **Alpha** stage, please report any bugs encountered or r
 
 A standalone copy of this documentation can be found from Ribs.js's [homepage](http://feifeihang.info/ribs/).
 
+Dependencies
+============
+
+1. jQuery
+2. Routie.js (*already included in Ribs.js by default*)
+
 Installation
 ============
 
@@ -13,10 +19,10 @@ The minified Ribs.js library is available at:
 
 [http://feifeihang.info/ribs/ribs.min.js](http://feifeihang.info/ribs/ribs.min.js)
 
-Ribs.new(`obj, defaults`)
+Ribs.create(`obj, defaults`)
 =======================
 
-<a name="ribs_new"></a>Clone an Ribs instance.
+<a name="ribs_new"></a>Create an Ribs instance.
 
 `obj`: the object that needs to be cloned.
 
@@ -25,7 +31,7 @@ Ribs.new(`obj, defaults`)
 Ribs.Model
 ==========
 
-Ribs.Model.new(`json`)
+Ribs.Model.create(`json`)
 --------------------
 
 Create a new Ribs.Model instance.
@@ -124,7 +130,7 @@ Fetch data from server according to the '`destory`' settings.
 Ribs.View
 =========
 
-Ribs.View.new(`json`)
+Ribs.View.create(`json`)
 -------------------
 
 Create a new Ribs.View instance.
@@ -139,7 +145,7 @@ Create a new Ribs.View instance.
        e.g.: `{'#btn': {on: 'click', do: 'showInfo'}}`
 
 * `template`: the template that will be used to render the view.
-* `initialize`: the function that will be executed when a new instance is create by using Ribs.new against this Ribs instance.
+* `initialize`: the function that will be executed when a new instance is create by using Ribs.create against this Ribs instance.
 * `defaults`: the default dataset of the instance.
 * `onchange`: the functions that will be autoamatically executed when the specified '`defaults`' element is changed.
 
@@ -174,7 +180,7 @@ Render the Ribs.View instance in its '`el`'.
 Ribs.Collection
 ===============
 
-Ribs.Collection.new(`json`)
+Ribs.Collection.create(`json`)
 -------------------------
 
 Create a new Ribs.Collection instance.
@@ -195,7 +201,7 @@ Create a new Ribs.Collection instance.
    - `url`: URL
    - `method`: Invoking method (*i.e. 'get', 'post', 'put', 'delete', etc.*).
 * `defaults`: the default dataset of the instance.
-* `initialize`: the function that will be executed when a new instance is create by using [Ribs.new](#ribs_new) against this Ribs instance.
+* `initialize`: the function that will be executed when a new instance is create by using [Ribs.create](#ribs_new) against this Ribs instance.
 * `onchange`: the functions that will be autoamatically executed when the specified '`defaults`' element is changed.
 
 Ribs.Collection.adopt(`json`)
@@ -323,9 +329,9 @@ Example:
 
 ~~~ {.javascript}
 var date = new Date();
-var user = Ribs.Model.new(...);
+var user = Ribs.Model.create(...);
 
-var UserView = Ribs.View.new({
+var UserView = Ribs.View.create({
     el: $("body"),
     template: $("user-view-template").html(),
     defaults: {
