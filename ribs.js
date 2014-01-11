@@ -7,15 +7,16 @@ function Ribs() {
     this.Router = new _Router();
 }
 
-Ribs.prototype.new = function(obj, defaults) {
+Ribs.prototype.create = function(obj, defaults) {
     var tempObj;
     if(arguments.length === 1) {
-        // tempObj = Ribs.transferSettings(obj);
-        tempObj = Object.create(obj);
+        // tempObj = Object.create(obj);
+        tempObj = $.extend(true, {}, obj);
     }
     else if(arguments.length === 2) {
         /* tempObj = Ribs.transferSettings(obj); */
-        tempObj = Object.create(obj);
+        // tempObj = Object.create(obj);
+        tempObj = $.extend(true, {}, obj);
         tempObj.defaults = defaults;
         // think about this one below
         // $.each(defaults, function(key, value) {
@@ -37,15 +38,15 @@ Ribs.prototype.transferSettings = function(obj) {
     alert('Type: ' + obj._type);
     if(obj._type === 'Ribs.View') {
         alert('Check View');
-        newObj = Ribs.View.new(obj.json);
+        newObj = Ribs.View.create(obj.json);
     }
     else if(obj._type === 'Ribs.Model') {
         alert('Check Model');
-        newObj = Ribs.Model.new(obj.json);
+        newObj = Ribs.Model.create(obj.json);
     }
     else if(obj._type === 'Ribs.Collection') {
         alert('Check Collection');
-        newObj = Ribs.Collection.new(obj.json);
+        newObj = Ribs.Collection.create(obj.json);
     }
     else {
         newObj = false;
@@ -66,7 +67,7 @@ function _RibsView() {
     this.onchange;
 }
 
-_RibsView.prototype.new = function(params) {
+_RibsView.prototype.create = function(params) {
     var obj = Object.create(this);
 
     obj = obj.adopt(params, obj);
@@ -172,7 +173,7 @@ function _RibsModel() {
     this.onchange;
 }
 
-_RibsModel.prototype.new = function(params) {
+_RibsModel.prototype.create = function(params) {
     var obj = Object.create(this);
 
     obj = obj.adopt(params, obj);
@@ -307,7 +308,7 @@ function _RibsCollection() {
     this.onchange;
 }
 
-_RibsCollection.prototype.new = function(params) {
+_RibsCollection.prototype.create = function(params) {
     var obj = Object.create(this);
 
     obj = obj.adopt(params, obj);
@@ -419,7 +420,7 @@ _RibsCollection.prototype.fetch = function(params) {
         },
         success: function(data) {
             $.each(data, function(i, item) {
-                var md = Ribs.new(that.model, item);
+                var md = Ribs.create(that.model, item);
                 that.models.push(md);
             });
         },
@@ -472,7 +473,7 @@ _Router.prototype.navigate = function(url) {
 
 var Ribs = new Ribs();
 window['Ribs'] = {};
-window['Ribs']['new'] = Ribs.new;
+window['Ribs']['create'] = Ribs.create;
 window['Ribs']['Model'] = Ribs.Model;
 window['Ribs']['Collection'] = Ribs.Collection;
 window['Ribs']['View'] = Ribs.View;
