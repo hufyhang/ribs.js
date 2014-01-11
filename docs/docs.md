@@ -9,7 +9,7 @@ The minified Ribs.js library is available at:
 
 [http://feifeihang.info/ribs/ribs.min.js](http://feifeihang.info/ribs/ribs.min.js)
 
-Ribs.new(`obj, defaults`)
+Ribs.make(`obj, defaults`)
 =======================
 
 <a name="ribs_new"></a>Clone an Ribs instance.
@@ -21,7 +21,7 @@ Ribs.new(`obj, defaults`)
 Ribs.Model
 ==========
 
-Ribs.Model.new(`json`)
+Ribs.Model.make(`json`)
 --------------------
 
 Create a new Ribs.Model instance.
@@ -40,7 +40,7 @@ Create a new Ribs.Model instance.
 * `destory`: JSON to set the access point for destorying the Ribs.Model from server.
     -  `url`: URL
     -  `method`: Invoking method (*i.e. 'get', 'post', 'put', 'delete', etc.*).
-* `initialize`: the function that will be executed when a new instance is create by using Ribs.new against this Ribs instance.
+* `initialize`: the function that will be executed when a new instance is create by using Ribs.make against this Ribs instance.
 * `defaults`: the default dataset of the instance.
 * `onchange`: the functions that will be autoamatically executed when the specified 'defailts' element is changed.
 
@@ -120,7 +120,7 @@ Fetch data from server according to the '`destory`' settings.
 Ribs.View
 =========
 
-Ribs.View.new(`json`)
+Ribs.View.make(`json`)
 -------------------
 
 Create a new Ribs.View instance.
@@ -135,7 +135,7 @@ Create a new Ribs.View instance.
        e.g.: `{'#btn': {on: 'click', do: 'showInfo'}}`
 
 * `template`: the template that will be used to render the view.
-* `initialize`: the function that will be executed when a new instance is create by using Ribs.new against this Ribs instance.
+* `initialize`: the function that will be executed when a new instance is create by using Ribs.make against this Ribs instance.
 * `defaults`: the default dataset of the instance.
 * `onchange`: the functions that will be autoamatically executed when the specified '`defaults`' element is changed.
 
@@ -170,7 +170,7 @@ Render the Ribs.View instance in its '`el`'.
 Ribs.Collection
 ===============
 
-Ribs.Collection.new(`json`)
+Ribs.Collection.make(`json`)
 -------------------------
 
 Create a new Ribs.Collection instance.
@@ -191,7 +191,7 @@ Create a new Ribs.Collection instance.
    - `url`: URL
    - `method`: Invoking method (*i.e. 'get', 'post', 'put', 'delete', etc.*).
 * `defaults`: the default dataset of the instance.
-* `initialize`: the function that will be executed when a new instance is create by using [Ribs.new](#ribs_new) against this Ribs instance.
+* `initialize`: the function that will be executed when a new instance is create by using [Ribs.make](#ribs_new) against this Ribs instance.
 * `onchange`: the functions that will be autoamatically executed when the specified '`defaults`' element is changed.
 
 Ribs.Collection.adopt(`json`)
@@ -319,9 +319,9 @@ Example:
 
 ~~~ {.javascript}
 var date = new Date();
-var user = Ribs.Model.new(...);
+var user = Ribs.Model.make(...);
 
-var UserView = Ribs.View.new({
+var UserView = Ribs.View.make({
     el: $("body"),
     template: $("user-view-template").html(),
     defaults: {

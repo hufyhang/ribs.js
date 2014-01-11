@@ -37,9 +37,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="TOC">
 <ul>
 <li><a href="#installation">Installation</a></li>
-<li><a href="#ribs.newobj-defaults">Ribs.new(<code>obj, defaults</code>)</a></li>
+<li><a href="#ribs.makeobj-defaults">Ribs.make(<code>obj, defaults</code>)</a></li>
 <li><a href="#ribs.model">Ribs.Model</a><ul>
-<li><a href="#ribs.model.newjson">Ribs.Model.new(<code>json</code>)</a></li>
+<li><a href="#ribs.model.makejson">Ribs.Model.make(<code>json</code>)</a></li>
 <li><a href="#ribs.model.adoptjson">Ribs.Model.adopt(<code>json</code>)</a></li>
 <li><a href="#ribs.model.getkey">Ribs.Model.get(<code>key</code>)</a></li>
 <li><a href="#ribs.model.setjson">Ribs.Model.set(<code>json</code>)</a></li>
@@ -49,14 +49,14 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#ribs.model.destoryjson">Ribs.Model.destory(<code>json</code>)</a></li>
 </ul></li>
 <li><a href="#ribs.view">Ribs.View</a><ul>
-<li><a href="#ribs.view.newjson">Ribs.View.new(<code>json</code>)</a></li>
+<li><a href="#ribs.view.makejson">Ribs.View.make(<code>json</code>)</a></li>
 <li><a href="#ribs.view.adoptjson">Ribs.View.adopt(<code>json</code>)</a></li>
 <li><a href="#ribs.view.getkey">Ribs.View.get(<code>key</code>)</a></li>
 <li><a href="#ribs.view.setjson">Ribs.View.set(<code>json</code>)</a></li>
 <li><a href="#ribs.view.render">Ribs.View.render()</a></li>
 </ul></li>
 <li><a href="#ribs.collection">Ribs.Collection</a><ul>
-<li><a href="#ribs.collection.newjson">Ribs.Collection.new(<code>json</code>)</a></li>
+<li><a href="#ribs.collection.makejson">Ribs.Collection.make(<code>json</code>)</a></li>
 <li><a href="#ribs.collection.adoptjson">Ribs.Collection.adopt(<code>json</code>)</a></li>
 <li><a href="#ribs.collection.getkey">Ribs.Collection.get(<code>key</code>)</a></li>
 <li><a href="#ribs.collection.setjson">Ribs.Collection.set(<code>json</code>)</a></li>
@@ -78,12 +78,12 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h1 id="installation"><a href="#installation">Installation</a></h1>
 <p>The minified Ribs.js library is available at:</p>
 <p><a href="http://feifeihang.info/ribs/ribs.min.js">http://feifeihang.info/ribs/ribs.min.js</a></p>
-<h1 id="ribs.newobj-defaults"><a href="#ribs.newobj-defaults">Ribs.new(<code>obj, defaults</code>)</a></h1>
+<h1 id="ribs.makeobj-defaults"><a href="#ribs.makeobj-defaults">Ribs.make(<code>obj, defaults</code>)</a></h1>
 <p><a name="ribs_new"></a>Clone an Ribs instance.</p>
 <p><code>obj</code>: the object that needs to be cloned.</p>
 <p><code>defaults</code>: [<strong>optional</strong>] the defaults JSON data of the newly cloned istance.</p>
 <h1 id="ribs.model"><a href="#ribs.model">Ribs.Model</a></h1>
-<h2 id="ribs.model.newjson"><a href="#ribs.model.newjson">Ribs.Model.new(<code>json</code>)</a></h2>
+<h2 id="ribs.model.makejson"><a href="#ribs.model.makejson">Ribs.Model.make(<code>json</code>)</a></h2>
 <p>Create a new Ribs.Model instance.</p>
 <p><code>json</code>: the settings in JSON</p>
 <ul>
@@ -107,7 +107,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><code>url</code>: URL</li>
 <li><code>method</code>: Invoking method (<em>i.e. 'get', 'post', 'put', 'delete', etc.</em>).</li>
 </ul></li>
-<li><code>initialize</code>: the function that will be executed when a new instance is create by using Ribs.new against this Ribs instance.</li>
+<li><code>initialize</code>: the function that will be executed when a new instance is create by using Ribs.make against this Ribs instance.</li>
 <li><code>defaults</code>: the default dataset of the instance.</li>
 <li><code>onchange</code>: the functions that will be autoamatically executed when the specified 'defailts' element is changed.</li>
 </ul>
@@ -161,7 +161,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><code>always</code>: the function that will always be executed after the calling.</li>
 </ul>
 <h1 id="ribs.view"><a href="#ribs.view">Ribs.View</a></h1>
-<h2 id="ribs.view.newjson"><a href="#ribs.view.newjson">Ribs.View.new(<code>json</code>)</a></h2>
+<h2 id="ribs.view.makejson"><a href="#ribs.view.makejson">Ribs.View.make(<code>json</code>)</a></h2>
 <p>Create a new Ribs.View instance.</p>
 <p><code>json</code>: the settings in JSON</p>
 <ul>
@@ -171,7 +171,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><p><code>do</code>: the name of the function that will be called when the trigger is fired. This function should be defined as a part of 'json'.</p>
 <p>e.g.: <code>{'#btn': {on: 'click', do: 'showInfo'}}</code></p></li>
 <li><code>template</code>: the template that will be used to render the view.</li>
-<li><code>initialize</code>: the function that will be executed when a new instance is create by using Ribs.new against this Ribs instance.</li>
+<li><code>initialize</code>: the function that will be executed when a new instance is create by using Ribs.make against this Ribs instance.</li>
 <li><code>defaults</code>: the default dataset of the instance.</li>
 <li><p><code>onchange</code>: the functions that will be autoamatically executed when the specified '<code>defaults</code>' element is changed.</p></li>
 </ul>
@@ -188,7 +188,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h2 id="ribs.view.render"><a href="#ribs.view.render">Ribs.View.render()</a></h2>
 <p>Render the Ribs.View instance in its '<code>el</code>'.</p>
 <h1 id="ribs.collection"><a href="#ribs.collection">Ribs.Collection</a></h1>
-<h2 id="ribs.collection.newjson"><a href="#ribs.collection.newjson">Ribs.Collection.new(<code>json</code>)</a></h2>
+<h2 id="ribs.collection.makejson"><a href="#ribs.collection.makejson">Ribs.Collection.make(<code>json</code>)</a></h2>
 <p>Create a new Ribs.Collection instance.</p>
 <p><code>json</code>: the settings in JSON</p>
 <ul>
@@ -206,7 +206,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><code>url</code>: URL</li>
 <li><code>method</code>: Invoking method (<em>i.e. 'get', 'post', 'put', 'delete', etc.</em>).</li>
 <li><code>defaults</code>: the default dataset of the instance.</li>
-<li><code>initialize</code>: the function that will be executed when a new instance is create by using <a href="#ribs_new">Ribs.new</a> against this Ribs instance.</li>
+<li><code>initialize</code>: the function that will be executed when a new instance is create by using <a href="#ribs_new">Ribs.make</a> against this Ribs instance.</li>
 <li><code>onchange</code>: the functions that will be autoamatically executed when the specified '<code>defaults</code>' element is changed.</li>
 </ul>
 <h2 id="ribs.collection.adoptjson"><a href="#ribs.collection.adoptjson">Ribs.Collection.adopt(<code>json</code>)</a></h2>
@@ -283,9 +283,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>To refer the Ribs.View instance itself in <code>events</code> actions, passing a parameter such as <code>evt</code> to the action, and then use <code>var self = evt.data.self;</code> instead of pointer <code>this</code>.</p>
 <p>Example:</p>
 <pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> date = <span class="kw">new</span> <span class="fu">Date</span>();
-<span class="kw">var</span> user = <span class="ot">Ribs</span>.<span class="ot">Model</span>.<span class="fu">new</span>(...);
+<span class="kw">var</span> user = <span class="ot">Ribs</span>.<span class="ot">Model</span>.<span class="fu">make</span>(...);
 
-<span class="kw">var</span> UserView = <span class="ot">Ribs</span>.<span class="ot">View</span>.<span class="fu">new</span>({
+<span class="kw">var</span> UserView = <span class="ot">Ribs</span>.<span class="ot">View</span>.<span class="fu">make</span>({
     <span class="dt">el</span>: <span class="fu">$</span>(<span class="st">&quot;body&quot;</span>),
     <span class="dt">template</span>: <span class="fu">$</span>(<span class="st">&quot;user-view-template&quot;</span>).<span class="fu">html</span>(),
     <span class="dt">defaults</span>: {
