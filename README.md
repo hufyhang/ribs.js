@@ -19,7 +19,7 @@ The minified Ribs.js library is available at:
 
 [http://feifeihang.info/ribs/ribs.min.js](http://feifeihang.info/ribs/ribs.min.js)
 
-Ribs.create(`obj, defaults`)
+Ribs.make(`obj, defaults`)
 =======================
 
 <a name="ribs_new"></a>Create an Ribs instance.
@@ -31,7 +31,7 @@ Ribs.create(`obj, defaults`)
 Ribs.Model
 ==========
 
-Ribs.Model.create(`json`)
+Ribs.Model.make(`json`)
 --------------------
 
 Create a new Ribs.Model instance.
@@ -130,7 +130,7 @@ Fetch data from server according to the '`destory`' settings.
 Ribs.View
 =========
 
-Ribs.View.create(`json`)
+Ribs.View.make(`json`)
 -------------------
 
 Create a new Ribs.View instance.
@@ -180,7 +180,7 @@ Render the Ribs.View instance in its '`el`'.
 Ribs.Collection
 ===============
 
-Ribs.Collection.create(`json`)
+Ribs.Collection.make(`json`)
 -------------------------
 
 Create a new Ribs.Collection instance.
@@ -201,7 +201,7 @@ Create a new Ribs.Collection instance.
    - `url`: URL
    - `method`: Invoking method (*i.e. 'get', 'post', 'put', 'delete', etc.*).
 * `defaults`: the default dataset of the instance.
-* `initialize`: the function that will be executed when a new instance is create by using [Ribs.create](#ribs_new) against this Ribs instance.
+* `initialize`: the function that will be executed when a new instance is create by using [Ribs.make](#ribs_new) against this Ribs instance.
 * `onchange`: the functions that will be autoamatically executed when the specified '`defaults`' element is changed.
 
 Ribs.Collection.adopt(`json`)
@@ -329,9 +329,9 @@ Example:
 
 ~~~ {.javascript}
 var date = new Date();
-var user = Ribs.Model.create(...);
+var user = Ribs.Model.make(...);
 
-var UserView = Ribs.View.create({
+var UserView = Ribs.View.make({
     el: $("body"),
     template: $("user-view-template").html(),
     defaults: {
