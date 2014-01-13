@@ -7,6 +7,24 @@ function Ribs() {
     this.Router = new _Router();
 }
 
+Ribs.prototype.extend = function () {
+    "use strict";
+    var process = function (destination, source) {
+        for (var key in source) {
+            if (hasOwnProperty.call(source, key)) {
+                destination[key] = source[key];
+            }
+        }
+        return destination;
+    };
+    var result = {};
+    for(var i=0; i<arguments.length; i++) {
+        result = process(result, arguments[i]);
+    }
+    return result;
+};
+
+// TODO: Try to replace jQuery extend with Ribs.extend
 Ribs.prototype.make = function(obj, defaults) {
     var tempObj;
     if(arguments.length === 1) {
@@ -477,6 +495,7 @@ _Router.prototype.navigate = function(url) {
 var Ribs = new Ribs();
 window['Ribs'] = {};
 window['Ribs']['make'] = Ribs.make;
+window['Ribs']['extend'] = Ribs.extend;
 window['Ribs']['Model'] = Ribs.Model;
 window['Ribs']['Collection'] = Ribs.Collection;
 window['Ribs']['View'] = Ribs.View;

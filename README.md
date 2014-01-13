@@ -28,6 +28,13 @@ Ribs.make(`obj, defaults`)
 
 `defaults`: [**optional**] the defaults JSON data of the newly cloned istance.
 
+
+Ribs.extend(`json`)
+===================
+
+Deep copy the objects defined in arguments and return the newly created object.
+
+
 Ribs.Model
 ==========
 
