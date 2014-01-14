@@ -19,7 +19,7 @@ The minified Ribs.js library is available at:
 
 [http://feifeihang.info/ribs/ribs.min.js](http://feifeihang.info/ribs/ribs.min.js)
 
-Object.prototype.format(`*args`)
+String.prototype.format(`*args`)
 ======================
 
 Format a string.

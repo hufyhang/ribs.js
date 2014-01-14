@@ -1,6 +1,6 @@
 (function(){
 
-this.Object.prototype.format = function () {
+this.String.prototype.format = function () {
     "use strict";
     if (arguments.length === 0) {
         return null;
