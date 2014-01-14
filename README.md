@@ -19,14 +19,14 @@ The minified Ribs.js library is available at:
 
 [http://feifeihang.info/ribs/ribs.min.js](http://feifeihang.info/ribs/ribs.min.js)
 
-Object.format(`*args`)
+Object.prototype.format(`*args`)
 ======================
 
 Format a string.
 
 For example:
 
-        '{1} is now {2} years old.'.format('Tom', 20);
+        '{1} is now {2} years old.'.format('Tom', 20); // → Tom is now 20 years old.
 
 
 Ribs.make(`obj, defaults`)
