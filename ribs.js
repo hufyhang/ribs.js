@@ -1,5 +1,20 @@
 (function(){
 
+this.Object.prototype.format = function () {
+    "use strict";
+    if (arguments.length === 0) {
+        return null;
+    }
+
+    var string = this;
+    for (var index = 0; index !== arguments.length; ++index) {
+        var regEx = new RegExp("\\{" + (index + 1) + "\\}", "gm");
+        string = string.replace(regEx, arguments[index]);
+    }
+
+    return string;
+};
+
 function Ribs() {
     this.Model = new _RibsModel();
     this.Collection = new _RibsCollection();
