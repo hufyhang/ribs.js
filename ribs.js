@@ -317,6 +317,7 @@ _RibsModel.prototype.ajax = function(url, method, params) {
     $.ajax({
         url: url,
         type: method,
+        context: this,
         data: data,
         async: async
     }).done(doneFunc).fail(failFunc).always(alwaysFunc);
@@ -450,6 +451,7 @@ _RibsCollection.prototype.fetch = function(params) {
         url: this.fetchUrl,
         type: this.fetchMethod,
         data: data,
+        context: this,
         async: async,
         statusCode: {
             200: doneFunc
@@ -486,6 +488,7 @@ _RibsCollection.prototype.ajax = function(url, method, params) {
     $.ajax({
         url: url,
         type: method,
+        context: this,
         data: data,
         async: async
     }).done(doneFunc).fail(failFunc).always(alwaysFunc);
