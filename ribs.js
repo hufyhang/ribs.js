@@ -226,7 +226,7 @@ _RibsModel.prototype.adopt = function(params, object) {
         obj = object;
         obj.json = params;
     }
-    
+
     $.each(params, function(item) {
         var val = params[item];
         if(item === 'fetch') {
@@ -363,7 +363,7 @@ _RibsCollection.prototype.adopt = function(params, object) {
         obj = object;
         obj.json = params;
     }
-    
+
     $.each(params, function(item) {
         var val = params[item];
         if(item === 'model') {
@@ -407,7 +407,7 @@ _RibsCollection.prototype.adopt = function(params, object) {
 
     return obj;
 }
-    
+
 _RibsCollection.prototype.get = function(key) {
     return this.defaults[key];
 };
