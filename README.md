@@ -316,7 +316,7 @@ e.g.:
 {
     '': function() {
         alert(...);
-    }, 
+    },
     'home': function() {
         return;
     }
