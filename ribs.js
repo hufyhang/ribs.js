@@ -314,6 +314,9 @@ _RibsModel.prototype.ajax = function(url, method, params) {
     var doneFunc = params.done ? params.done : function() {return;};
     var failFunc = params.fail ? params.fail : function() {return;};
     var alwaysFunc = params.always ? params.always : function() {return;};
+    doneFunc = doneFunc.bind(this);
+    failFunc = failFunc.bind(this);
+    alwaysFunc = alwaysFunc.bind(this);
     $.ajax({
         url: url,
         type: method,
