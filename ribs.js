@@ -39,23 +39,14 @@ Ribs.prototype.extend = function () {
     return result;
 };
 
-// TODO: Try to replace jQuery extend with Ribs.extend
 Ribs.prototype.make = function(obj, defaults) {
     var tempObj;
     if(arguments.length === 1) {
-        // tempObj = Ribs.transferSettings(obj);
-        // tempObj = Object.create(obj);
         tempObj = $.extend(true, {}, obj);
     }
     else if(arguments.length === 2) {
-        /* tempObj = Ribs.transferSettings(obj); */
-        // tempObj = Object.create(obj);
         tempObj = $.extend(true, {}, obj);
-        tempObj.defaults = defaults;
-        // think about this one below
-        // $.each(defaults, function(key, value) {
-        //     tempObj.defaults[key] = defaults[key];
-        // });
+        tempObj.set(defaults);
     }
     else {
         tempObj = false;
@@ -64,6 +55,7 @@ Ribs.prototype.make = function(obj, defaults) {
     if(tempObj !== false) {
         tempObj.initialize();
     }
+
     return tempObj;
 };
 
@@ -95,7 +87,7 @@ function _RibsView() {
     this.template;
     this.initialize = function() {return;};
     this.defaults = {};
-    this.onchange;
+    this.watch;
 }
 
 _RibsView.prototype.make = function(params) {
@@ -143,8 +135,8 @@ _RibsView.prototype.adopt = function(params, object) {
                 obj.defaults = val;
             }
         }
-        else if(item === 'onchange') {
-            obj.onchange = val;
+        else if(item === 'watch') {
+            obj.watch = val;
         }
         else {
             var code = '_RibsView.prototype.' + item + ' = ' + val;
@@ -155,12 +147,12 @@ _RibsView.prototype.adopt = function(params, object) {
     return obj;
 }
 
+_RibsView.prototype._doChangeEvent = function () {};
 
 _RibsView.prototype.changeEvent = function(defaultKey) {
-    if(this.onchange[defaultKey]) {
-        var code = '_RibsView.prototype._doChangeEvent  = ' + this.json[this.onchange[defaultKey]];
-        eval(code);
-        this._doChangeEvent();
+    if(this.watch[defaultKey]) {
+        _RibsView.prototype._doChangeEvent = this.json[this.watch[defaultKey]];
+        _RibsView.prototype._doChangeEvent.call(this);
     }
 }
 
@@ -172,7 +164,7 @@ _RibsView.prototype.set = function(json) {
     var that = this;
     $.each(json, function(key, value) {
         that.defaults[key] = json[key];
-        if(that.onchange) {
+        if(that.watch) {
             that.changeEvent(key);
         }
     });
@@ -182,11 +174,11 @@ _RibsView.prototype.set = function(json) {
 _RibsView.prototype.render = function() {
     this.renderFunc();
 
+    console.log('EVENT');
     // add events listener
     for(event in this.events) {
-        for(thing in this.events[event]) {
-            $(event).on(this.events[event][thing]['on'], {self: this}, this.json[this.events[event][thing]['do']]);
-        }
+        var evt = this.events[event];
+        $(event).on(evt.on, {self: this}, this.json[evt.fire]);
     }
 };
 
@@ -204,7 +196,7 @@ function _RibsModel() {
     this.createMethod = 'post';
     this.initialize = function() {return;};
     this.defaults = {};
-    this.onchange;
+    this.watch;
 }
 
 _RibsModel.prototype.make = function(params) {
@@ -256,8 +248,8 @@ _RibsModel.prototype.adopt = function(params, object) {
                 obj.defaults = val;
             }
         }
-        else if(item === 'onchange') {
-            obj.onchange = val;
+        else if(item === 'watch') {
+            obj.watch = val;
         }
         else {
             var code = '_RibsModel.prototype.' + item + ' = ' + val;
@@ -268,6 +260,7 @@ _RibsModel.prototype.adopt = function(params, object) {
     return obj;
 }
 
+_RibsModel.prototype._doChangeEvent = function () {};
 
 _RibsModel.prototype.get = function(key) {
     return this.defaults[key];
@@ -277,7 +270,7 @@ _RibsModel.prototype.set = function(json) {
     var that = this;
     $.each(json, function(key, value) {
         that.defaults[key] = json[key];
-        if(that.onchange) {
+        if(that.watch) {
             that.changeEvent(key);
         }
     });
@@ -285,10 +278,9 @@ _RibsModel.prototype.set = function(json) {
 };
 
 _RibsModel.prototype.changeEvent = function(defaultKey) {
-    if(this.onchange[defaultKey]) {
-        var code = '_RibsModel.prototype._doChangeEvent  = ' + this.json[this.onchange[defaultKey]];
-        eval(code);
-        this._doChangeEvent();
+    if(this.watch[defaultKey]) {
+        _RibsModel.prototype._doChangeEvent = this.json[this.watch[defaultKey]];
+        _RibsModel.prototype._doChangeEvent.call(this);
     }
 }
 
@@ -317,10 +309,11 @@ _RibsModel.prototype.ajax = function(url, method, params) {
     doneFunc = doneFunc.bind(this);
     failFunc = failFunc.bind(this);
     alwaysFunc = alwaysFunc.bind(this);
+    var self = this;
     $.ajax({
         url: url,
         type: method,
-        context: this,
+        context: self,
         data: data,
         async: async
     }).done(doneFunc).fail(failFunc).always(alwaysFunc);
@@ -344,7 +337,7 @@ function _RibsCollection() {
 
     this.defaults = {};
     this.initialize = function() {return;};
-    this.onchange;
+    this.watch;
 }
 
 _RibsCollection.prototype.make = function(params) {
@@ -399,8 +392,8 @@ _RibsCollection.prototype.adopt = function(params, object) {
                 obj.defaults = val;
             }
         }
-        else if(item === 'onchange') {
-            obj.onchange = val;
+        else if(item === 'watch') {
+            obj.watch = val;
         }
         else {
             var code = '_RibsCollection.prototype.' + item + ' = ' + val;
@@ -411,6 +404,8 @@ _RibsCollection.prototype.adopt = function(params, object) {
     return obj;
 }
 
+_RibsCollection.prototype._doChangeEvent = function () {};
+
 _RibsCollection.prototype.get = function(key) {
     return this.defaults[key];
 };
@@ -419,7 +414,7 @@ _RibsCollection.prototype.set = function(json) {
     var that = this;
     $.each(json, function(key, value) {
         that.defaults[key] = json[key];
-        if(that.onchange) {
+        if(that.watch) {
             that.changeEvent(key);
         }
     });
@@ -427,10 +422,9 @@ _RibsCollection.prototype.set = function(json) {
 };
 
 _RibsCollection.prototype.changeEvent = function(defaultKey) {
-    if(this.onchange[defaultKey]) {
-        var code = '_RibsCollection.prototype._doChangeEvent  = ' + this.json[this.onchange[defaultKey]];
-        eval(code);
-        this._doChangeEvent();
+    if(this.watch[defaultKey]) {
+        _RibsCollection.prototype._doChangeEvent = this.json[this.watch[defaultKey]];
+        _RibsCollection.prototype._doChangeEvent.call(this);
     }
 }
 
