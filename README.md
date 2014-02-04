@@ -69,7 +69,7 @@ Create a new Ribs.Model instance.
     -  `method`: Invoking method (*i.e. 'get', 'post', 'put', 'delete', etc.*).
 * `initialize`: the function that will be executed when a new instance is create by using Ribs.new against this Ribs instance.
 * `defaults`: the default dataset of the instance.
-* `onchange`: the functions that will be autoamatically executed when the specified 'defailts' element is changed.
+* `watch`: the functions that will be autoamatically executed when the specified 'defailts' element is changed.
 
 Ribs.Model.adopt(`json`)
 ----------------------
@@ -157,14 +157,14 @@ Create a new Ribs.View instance.
 * `el`: the DOM element that will be used to display the view instance.
 * `events`: the events binding of the view instance (has to be an array).
    - `on`: the event trigger.
-   - `do`: the name of the function that will be called when the trigger is fired. This function should be defined as a part of 'json'.
+   - `fire`: the name of the function that will be called when the trigger is fired. This function should be defined as a part of 'json'.
 
-       e.g.: `{'#btn': [{on: 'click', do: 'showInfo'}]}`
+       e.g.: `{'#btn': [{on: 'click', fire: 'showInfo'}]}`
 
 * `template`: the template that will be used to render the view.
 * `initialize`: the function that will be executed when a new instance is create by using Ribs.create against this Ribs instance.
 * `defaults`: the default dataset of the instance.
-* `onchange`: the functions that will be autoamatically executed when the specified '`defaults`' element is changed.
+* `watch`: the functions that will be autoamatically executed when the specified '`defaults`' element is changed.
 
 **Good Practice:** [Defining functions for Ribs.View](#ribs-view-functions)
 
@@ -219,7 +219,7 @@ Create a new Ribs.Collection instance.
    - `method`: Invoking method (*i.e. 'get', 'post', 'put', 'delete', etc.*).
 * `defaults`: the default dataset of the instance.
 * `initialize`: the function that will be executed when a new instance is create by using [Ribs.make](#ribs_new) against this Ribs instance.
-* `onchange`: the functions that will be autoamatically executed when the specified '`defaults`' element is changed.
+* `watch`: the functions that will be autoamatically executed when the specified '`defaults`' element is changed.
 
 Ribs.Collection.adopt(`json`)
 ----------------------
@@ -363,7 +363,7 @@ var UserView = Ribs.View.make({
     events: {
         "#ok-btn": {
             on: "click",
-            do: "showInfo"
+            fire: "showInfo"
         }
     },
     showInfo: function(e) {
